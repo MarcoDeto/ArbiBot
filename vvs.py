@@ -38,6 +38,7 @@ list_coina = ['ACH', '1INCH']
 
 def get_vvs_finance():
 
+    result_list = []
 
     try:
         driver = Safari()
@@ -65,7 +66,7 @@ def get_vvs_finance():
         #driver.execute_script("window.stop();")
         
 
-        importo = ['500','1000','1500','2000','3000','4000','5000','10000','15000','20000']
+        importo = ['500','750','1000','1250','1500','2000','3000','4000','5000','10000','15000','20000']
         first_coin = ''
         second_coin = ''
         price_coin = {}
@@ -73,22 +74,23 @@ def get_vvs_finance():
         for coin in list_coin:
             first_coin = coin_basec
             second_coin = coin
-            response = get_first_price_coin(driver, importo, first_coin, second_coin, price_coin)
-            result.append(response)
-            print(result)
+            result = dict()
+            result['coin'] = second_coin
+            result['value'] = get_first_price_coin(driver, importo, first_coin, second_coin, price_coin)
+            result_list.append(result)
+        
+        print(result_list)
+            
         
 
     
 #def get_vvs_price_USDC(driver, importo):
-def get_first_price_coin(driver, importo, first_coin, second_coin, price_coin):
+def get_first_price_coin(driver, price_list, first_coin, second_coin, price_coin):
     
 
     buttons = driver.find_elements(By.CLASS_NAME, 'open-currency-select-button')
     buttons[0].click()
     time.sleep(3)
-    
-    #coin_list = driver.find_elements(By.CLASS_NAME, list_class_name)
-    #print(coin_list[0].text)
 
     crypto = driver.find_element(By.ID, 'token-search-input')
     crypto.send_keys(first_coin)
@@ -109,68 +111,36 @@ def get_first_price_coin(driver, importo, first_coin, second_coin, price_coin):
 
     entry = driver.find_elements(By.CLASS_NAME, 'token-amount-input')
     
-    for prezzo in importo:
-
-        #control = driver.find_elements(By.XPATH, "//input[@title='Token Amount']")
-        #valore = control[0].get_attribute('value') #recupero attributo 'value'
-        #print(valore)
-        #control[0].clear()
+    for price_to_check in price_list:
         entry[1].clear()
         entry[0].clear()
         delay()  
-        entry[0].send_keys(prezzo)
+        entry[0].send_keys(price_to_check)
         delay()   
-        #sc-fkubCs dCaJGX token-amount-input
-        #controla = driver.find_elements(By.CLASS_NAME, 'fPMzfz')
-        #print(controla[0].get_attribute('value'))
-        #controlb = driver.find_elements(By.CLASS_NAME, 'sc-fkubCs')
+
         control = driver.find_elements(By.XPATH, "//input[@title='Token Amount']")
-        valore = control[0].get_attribute('value') #recupero attributo 'value'
-        #if valore != prezzo :
-         #   print(valore)
-          #  control[0].clear()
-           # delay()
-        #while  valore :
-        
-        
-        
-         #   print(valore)
-          #  control[0].clear()
-           # delay()
-        #while  valore :
-        print('valore = ', valore)
-        print('prezzo = ', prezzo)
-        if valore != prezzo :
+        check_value = control[0].get_attribute('value') #recupero attributo 'value'
+
+        print('valore = ', check_value)
+        print('prezzo = ', price_to_check)
+        if check_value != price_to_check :
             
-            while valore != prezzo :
+            while check_value != price_to_check :
                 entry[1].clear()
                 entry[0].clear()
                 delay()  
                 control[0].clear()
                 control[1].clear()
-                print(prezzo)
-                print(valore)
-                entry[0].send_keys(prezzo)
+                print(price_to_check)
+                print(check_value)
+                entry[0].send_keys(price_to_check)
                 delay()
-                valore = control[0].get_attribute('value')
+                check_value = control[0].get_attribute('value')
                 delay()
-                print('valore azz', valore)
-                if valore == prezzo:
+                print('valore azz', check_value)
+                if check_value == price_to_check:
                     break
-    
-        #sc-eCjjWe fPMzfz
-
-        #print(control[0].tag_name)
-        #print(entry[0].title)
-        #entry[0].cancel()
-        #entry[0].send_keys(Keys.DELETE)
-         
-        #entry[0].clear()
-        #delay()
-        
-        #entry[0].send_keys(prezzo)
-        #delay()
-        
+                
 
         busdc = driver.find_elements(By.CLASS_NAME, 'liRUbv')
         try :
@@ -179,13 +149,13 @@ def get_first_price_coin(driver, importo, first_coin, second_coin, price_coin):
             break
         
         price = bprezzo.split(' ')
-        price_coin[prezzo] = float(price[0])
+        price_coin[price_to_check] = float(price[0])
         entry[1].clear()
         entry[0].clear()
         delay()
                 
 
-    #return price_usdc
+    return price_coin
 
 
 #def get_usdc_values_vvs(driver, importo):
