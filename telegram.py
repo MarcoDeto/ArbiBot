@@ -1,5 +1,4 @@
-import time
-from telethon import TelegramClient
+from telethon import TelegramClient # pip install
 from telethon.errors import SessionPasswordNeededError
 
 from config import TELEGRAM_API_HASH, TELEGRAM_API_ID, TELEGRAM_CHANNEL, TELEGRAM_PHONE, TELEGRAM_USERBNAME
@@ -27,26 +26,26 @@ async def test_message(telegram):
     await client.send_message(telegram, 'test_message')
 
 
-async def sendMessage(telegram, symbol, amount, open_price, close_price, percent, buy_on_vvs = False):
+async def sendMessage(telegram, symbol, amount, open_price, close_price, exchange, percent, buy_on_vvs = False):
     
     title = '**🤑💰ARBITRAGGIO💰🤑\n'
-    subtitle = '💎💎VVS💎💎 - ' + symbol + ' - $' + str(amount)
+    profit = 'PROFIT: ' + str(percent) + '% 🤑 **'
+
+    subtitle = '\n\n💎💎VVS💎💎 - ' + symbol + ' - $' + str(amount)
 
     openPrice = '\n\n**OPEN PRICE**: ' + str(open_price) + ' 🛒\n'
     if buy_on_vvs == True:
         openPrice = openPrice + 'BUY ON VVS\n'
     else:
-        openPrice = openPrice + 'BUY ON CRYPTO.COM\n'
+        openPrice = openPrice + 'BUY ON ' + exchange + '\n'
         
     closePrice = '**CLOSE PRICE**: ' + str(close_price) + ' ✋🏼\n'
     if buy_on_vvs == False:
         closePrice = closePrice + 'SELL ON VVS\n'
     else:
-        closePrice = closePrice + 'SELL ON CRYPTO.COM\n'
+        closePrice = closePrice + 'SELL ON ' + exchange + '\n'
 
-    profit = '\nPROFIT: ' + str(percent) + '% 🤑 **'
-
-    message = title + subtitle + openPrice + closePrice + profit
+    message = title + profit + subtitle + openPrice + closePrice
 
     await client.send_message(telegram, message)
 

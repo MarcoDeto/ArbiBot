@@ -1,11 +1,10 @@
-
 import hmac
 import hashlib
 import time
 
 import requests
 
-BASE_URL = 'https://api.crypto.com/v2/'
+BASE_URL = 'https://api.mexc.com/api/v3/'
 API_KEY = "TbjeFj1g8kuFv6h1gRNNCk"
 SECRET_KEY = "wSCrbsQGtB8jpppeEvh1NJ"
 
@@ -43,18 +42,18 @@ MAX_LEVEL = 3
 
 
 def get_book():
-    response = requests.get(BASE_URL + "public/get-book?instrument_name=VVS_USDT")
-    response = response.json()['result']
+    response = requests.get(BASE_URL + "ticker/bookTicker")
+    response = response.json()
     return response
 
 
 def get_symbols():
-    response = requests.get(BASE_URL + "public/get-ticker")
-    response = response.json()['result']
-    return response['data']
+    response = requests.get(BASE_URL + "ticker/price")
+    response = response.json()
+    return response
     
 
-def get_cryptocom_ticker_value(symbol):
+def get_mexc_ticker_value(second_coin):
     '''
     Name	Type       Description
      i     number      Instrument Name, e.g. BTC_USDT, ETH_CRO, etc.
@@ -68,8 +67,9 @@ def get_cryptocom_ticker_value(symbol):
      c     number      24-hour price change, null if there weren't any trades
 
     '''
-    symbols = get_symbols()
-    filtered = filter(lambda coin: coin['i'] == symbol+'C', symbols)
+    symbols = get_book()
+    symbol = get_symbol(second_coin)
+    filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
     try:
         result = list(filtered)[0]
     except:
@@ -80,8 +80,8 @@ def get_cryptocom_ticker_value(symbol):
             return None
     
     response = dict()
-    response['ask'] = result['k']
-    response['bid'] = result['b']
+    response['ask'] = float(result['askPrice'])
+    response['bid'] = float(result['bidPrice'])
     return response
 
 
@@ -113,4 +113,5 @@ req['sig'] = hmac.new(
 ).hexdigest()
 
 
-get_book()
+def get_symbol(second_coin):
+    return second_coin+'USD'
