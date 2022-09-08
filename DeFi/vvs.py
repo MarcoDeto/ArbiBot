@@ -23,7 +23,7 @@ from selenium.webdriver.support.ui import Select
 coin_basec = 'USDC'
 coin_baset = 'USDT'
 
-coin_list = ['AGLD', 'MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
+coin_list = ['MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
              'ALICE', 'ANKR', 'APE', 'AR', 'ARGO', 'ATOM', 'AURORA', 'AVAX', 'AXS', 'BAT',
              'BCH', 'bCRO', 'BIFI', 'BOSON', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE',
              'CRV', 'CSPR', 'DAI', 'DAR', 'DARK', 'DERC', 'DOGE', 'DOT', 'DUSD', 'DYDX',
