@@ -6,6 +6,7 @@ from pybit import usdt_perpetual, inverse_perpetual
 import requests
 import urllib3
 
+BASE_URL = "https://api.bybit.com/"
 TEST_BASE_URL = "https://api-testnet.bybit.com"
 TEST_BYBIT_API_KEY = 'rm7rMjCwal2grnNQ54'
 TEST_BYBIT_API_SECRET = 'U1sqmmLhaH0Xjp7I0T9K75yJ3m6AnCP1GO6F'
@@ -19,6 +20,35 @@ session_auth = usdt_perpetual.HTTP(
     api_key = TEST_BYBIT_API_KEY,
     api_secret = TEST_BYBIT_API_SECRET
 )
+
+
+def get_book():
+    response = requests.get(BASE_URL + "spot/v3/public/quote/ticker/bookTicker")
+    response = response.json()
+    return response
+
+
+def get_bybit_ticker_value(second_coin):
+    symbols = get_book()
+    symbol = get_symbol(second_coin)
+    filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
+    try:
+        result = list(filtered)[0]
+    except:
+        filtered = filter(lambda coin: coin['i'] == symbol+'T', symbols)
+        try:
+            result = list(filtered)[0]
+        except:
+            return None
+    
+    response = dict()
+    response['ask'] = float(result['askPrice'])
+    response['bid'] = float(result['bidPrice'])
+    return response
+
+
+def get_symbol(second_coin):
+    return second_coin+'USD'
 
 
 def get_bybit_symbols():

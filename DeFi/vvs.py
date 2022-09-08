@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 from selenium.webdriver.chrome.service import Service
 from Exchange.binance import *
+from Exchange.bitstamp import *
 from Exchange.cryptocom import *
 from Exchange.mexc import *
 
@@ -61,6 +62,7 @@ async def get_vvs_finance(telegram):
     for second_coin in coin_list:
         symbol = get_symbol(second_coin)
         binance = get_binance_ticker_value(second_coin)
+        bitstamp = get_bitstamp_ticker_value(second_coin)
         cryptocom = get_cryptocom_ticker_value(symbol)
         mexc = get_mexc_ticker_value(second_coin)
         if cryptocom == None and mexc == None:
@@ -76,7 +78,7 @@ async def get_vvs_finance(telegram):
         result_list.append(result)
         if len(prices['ask']) > 0:
             smallest_ask = get_smallest_ask(prices['ask'])
-            exchange = get_best_bid_exchange(binance, cryptocom, mexc)
+            exchange = get_best_bid_exchange(binance, bitstamp, cryptocom, mexc)
             percent = get_diff_percent(smallest_ask['price'], exchange['price'])
             if percent > 0:
                 await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
@@ -84,7 +86,7 @@ async def get_vvs_finance(telegram):
 
         if len(prices['bid']) > 0:
             biggest_bid = get_biggest_bid(prices['bid'])
-            exchange = get_best_ask_exchange(binance, cryptocom, mexc)
+            exchange = get_best_ask_exchange(binance, bitstamp, cryptocom, mexc)
             percent = get_diff_percent(exchange['price'], biggest_bid['price'])
             if percent > 0:
                 await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 

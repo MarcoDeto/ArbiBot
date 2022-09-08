@@ -1,7 +1,7 @@
 from config import *
 
 
-def get_best_bid_exchange(binance, cryptocom, mexc):
+def get_best_bid_exchange(binance, bitstamp, cryptocom, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
@@ -9,6 +9,9 @@ def get_best_bid_exchange(binance, cryptocom, mexc):
 
     if binance != None: list.append(binance['bid'])
     else: exchange_list.remove('BINANCE')
+
+    if bitstamp != None: list.append(bitstamp['bid'])
+    else: exchange_list.remove('BITSTAMP')
 
     if cryptocom != None: list.append(cryptocom['bid'])
     else: exchange_list.remove('CRYPTO.COM')
@@ -31,7 +34,7 @@ def get_best_bid_exchange(binance, cryptocom, mexc):
     return response
 
 
-def get_best_ask_exchange(binance, cryptocom, mexc):
+def get_best_ask_exchange(binance, bitstamp, cryptocom, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
@@ -39,6 +42,9 @@ def get_best_ask_exchange(binance, cryptocom, mexc):
 
     if binance != None: list.append(binance['ask'])
     else: exchange_list.remove('BINANCE')
+
+    if bitstamp != None: list.append(bitstamp['ask'])
+    else: exchange_list.remove('BITSTAMP')
 
     if cryptocom != None: list.append(cryptocom['ask'])
     else: exchange_list.remove('CRYPTO.COM')

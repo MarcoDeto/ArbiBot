@@ -1,16 +1,16 @@
 import requests
 
 
-BASE_URL = 'https://api.mexc.com/api/v3/'
+BASE_URL = 'https://api.exmo.com/v1.1/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "ticker/bookTicker")
+    response = requests.get(BASE_URL + "ticker/")
     response = response.json()
     return response
     
 
-def get_mexc_ticker_value(second_coin):
+def get_exmo_ticker_value(second_coin):
 
     symbols = get_book()
     symbol = get_symbol(second_coin)
@@ -25,8 +25,8 @@ def get_mexc_ticker_value(second_coin):
             return None
     
     response = dict()
-    response['ask'] = float(result['askPrice'])
-    response['bid'] = float(result['bidPrice'])
+    response['ask'] = float(result['buy_price'])
+    response['bid'] = float(result['sell_price'])
     return response
 
 
