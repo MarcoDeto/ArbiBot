@@ -1,11 +1,14 @@
 from config import *
 
 
-def get_best_bid_exchange(binance, bitstamp, cryptocom, mexc):
+def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
         exchange_list.append(exchange)
+
+    if ascendex != None: list.append(ascendex['bid'])
+    else: exchange_list.remove('ASCENDEX')
 
     if binance != None: list.append(binance['bid'])
     else: exchange_list.remove('BINANCE')
@@ -13,8 +16,17 @@ def get_best_bid_exchange(binance, bitstamp, cryptocom, mexc):
     if bitstamp != None: list.append(bitstamp['bid'])
     else: exchange_list.remove('BITSTAMP')
 
+    if bittrex != None: list.append(bittrex['bid'])
+    else: exchange_list.remove('BITTREX')
+
     if cryptocom != None: list.append(cryptocom['bid'])
     else: exchange_list.remove('CRYPTO.COM')
+
+    if exmo != None: list.append(exmo['bid'])
+    else: exchange_list.remove('EXMO')
+
+    if gateio != None: list.append(gateio['bid'])
+    else: exchange_list.remove('GATEIO')
         
     if mexc != None: list.append(mexc['bid'])
     else: exchange_list.remove('MEXC')
@@ -34,11 +46,14 @@ def get_best_bid_exchange(binance, bitstamp, cryptocom, mexc):
     return response
 
 
-def get_best_ask_exchange(binance, bitstamp, cryptocom, mexc):
+def get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
         exchange_list.append(exchange)
+
+    if ascendex != None: list.append(ascendex['ask'])
+    else: exchange_list.remove('ASCENDEX')
 
     if binance != None: list.append(binance['ask'])
     else: exchange_list.remove('BINANCE')
@@ -46,9 +61,18 @@ def get_best_ask_exchange(binance, bitstamp, cryptocom, mexc):
     if bitstamp != None: list.append(bitstamp['ask'])
     else: exchange_list.remove('BITSTAMP')
 
+    if bittrex != None: list.append(bittrex['ask'])
+    else: exchange_list.remove('BITTREX')
+
     if cryptocom != None: list.append(cryptocom['ask'])
     else: exchange_list.remove('CRYPTO.COM')
 
+    if exmo != None: list.append(exmo['ask'])
+    else: exchange_list.remove('EXMO')
+
+    if gateio != None: list.append(gateio['ask'])
+    else: exchange_list.remove('GATEIO')
+        
     if mexc != None: list.append(mexc['ask'])
     else: exchange_list.remove('MEXC')
 
