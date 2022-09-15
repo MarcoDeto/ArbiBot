@@ -1,7 +1,7 @@
 from config import *
 
 
-def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
+def get_best_bid_exchange(ascendex, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
@@ -10,8 +10,8 @@ def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     if ascendex != None: list.append(ascendex['bid'])
     else: exchange_list.remove('ASCENDEX')
 
-    if binance != None: list.append(binance['bid'])
-    else: exchange_list.remove('BINANCE')
+    # if binance != None: list.append(binance['bid'])
+    # else: exchange_list.remove('BINANCE')
 
     if bitstamp != None: list.append(bitstamp['bid'])
     else: exchange_list.remove('BITSTAMP')
@@ -46,7 +46,7 @@ def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     return response
 
 
-def get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
+def get_best_ask_exchange(ascendex, bitstamp, bittrex, cryptocom, exmo, gateio, mexc):
     list = []
     exchange_list = []
     for exchange in EXCHANGE_LIST:
@@ -55,8 +55,8 @@ def get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     if ascendex != None: list.append(ascendex['ask'])
     else: exchange_list.remove('ASCENDEX')
 
-    if binance != None: list.append(binance['ask'])
-    else: exchange_list.remove('BINANCE')
+    # if binance != None: list.append(binance['ask'])
+    # else: exchange_list.remove('BINANCE')
 
     if bitstamp != None: list.append(bitstamp['ask'])
     else: exchange_list.remove('BITSTAMP')

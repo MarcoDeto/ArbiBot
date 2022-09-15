@@ -28,7 +28,7 @@ from selenium.webdriver.support.ui import Select
 coin_basec = 'USDC'
 coin_baset = 'USDT'
 
-coin_list = ['ALGO', 'MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
+coin_list = ['MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
              'ALICE', 'ANKR', 'APE', 'AR', 'ARGO', 'ATOM', 'AURORA', 'AVAX', 'AXS', 'BAT',
              'BCH', 'bCRO', 'BIFI', 'BOSON', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE',
              'CRV', 'CSPR', 'DAI', 'DAR', 'DARK', 'DERC', 'DOGE', 'DOT', 'DUSD', 'DYDX',
@@ -66,7 +66,7 @@ async def get_vvs_finance(telegram):
     for second_coin in coin_list:
         symbol = get_symbol(second_coin)
         ascendex = get_ascendex_ticker_value(second_coin)
-        binance = get_binance_ticker_value(second_coin)
+        #binance = get_binance_ticker_value(second_coin)
         bitstamp = get_bitstamp_ticker_value(second_coin)
         bittrex = get_bittrex_ticker_value(second_coin)
         cryptocom = get_cryptocom_ticker_value(symbol)
@@ -86,7 +86,7 @@ async def get_vvs_finance(telegram):
         result_list.append(result)
         if len(prices['ask']) > 0:
             smallest_ask = get_smallest_ask(prices['ask'])
-            ask_exchange = get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
+            ask_exchange = get_best_bid_exchange(ascendex, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
             if percent > 0:
                 await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
@@ -94,7 +94,7 @@ async def get_vvs_finance(telegram):
 
         if len(prices['bid']) > 0:
             biggest_bid = get_biggest_bid(prices['bid'])
-            bid_exchange = get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
+            bid_exchange = get_best_ask_exchange(ascendex, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
             if percent > 0:
                 await sendMessage(telegram, symbol, biggest_bid['amount'], bid_exchange['price'],
