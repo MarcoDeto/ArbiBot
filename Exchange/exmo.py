@@ -5,9 +5,12 @@ BASE_URL = 'https://api.exmo.com/v1.1/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "ticker/")
-    response = response.json()
-    return response
+    try:
+        response = requests.get(BASE_URL + "ticker/")
+        response = response.json()
+        return response
+    except:
+        pass
     
 
 def get_exmo_ticker_value(second_coin):

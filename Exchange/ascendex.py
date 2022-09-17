@@ -1,3 +1,4 @@
+from nis import cat
 import requests
 
 
@@ -5,9 +6,12 @@ BASE_URL = 'https://ascendex.com/api/pro/v1/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "spot/ticker")
-    response = response.json()
-    return response
+    try:
+        response = requests.get(BASE_URL + "spot/ticker")
+        response = response.json()
+        return response
+    except:
+        pass
     
 
 def get_ascendex_ticker_value(second_coin):

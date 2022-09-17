@@ -48,8 +48,8 @@ async def get_vvs_finance(telegram):
     result_list = []
 
     chrome_options = webdriver.ChromeOptions()
-    #chrome_options.add_argument('--headless')
-    #chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument("--mute-audio")
     chrome_driver_manager = ChromeDriverManager().install()
@@ -201,7 +201,10 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         ask_prices[price_to_check] = float(price[0])
         delay()
         change_to_sell = driver.find_elements(By.CLASS_NAME, 'fbkFTK')
-        change_to_sell[0].click()
+        try:
+            change_to_sell[0].click()
+        except:
+            continue
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')
         try:

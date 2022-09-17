@@ -23,9 +23,12 @@ session_auth = usdt_perpetual.HTTP(
 
 
 def get_book():
-    response = requests.get(BASE_URL + "spot/v3/public/quote/ticker/bookTicker")
-    response = response.json()
-    return response
+    try:
+        response = requests.get(BASE_URL + "spot/v3/public/quote/ticker/bookTicker")
+        response = response.json()
+        return response
+    except:
+        pass
 
 
 def get_bybit_ticker_value(second_coin):

@@ -5,9 +5,12 @@ BASE_URL = 'https://api.gateio.ws/api/v4/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "spot/tickers/")
-    response = response.json()
-    return response
+    try:
+        response = requests.get(BASE_URL + "spot/tickers/")
+        response = response.json()
+        return response
+    except:
+        pass
     
 
 def get_gateio_ticker_value(second_coin):

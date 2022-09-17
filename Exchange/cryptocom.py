@@ -49,9 +49,12 @@ def get_book():
 
 
 def get_symbols():
-    response = requests.get(BASE_URL + "public/get-ticker")
-    response = response.json()['result']
-    return response['data']
+    try:
+        response = requests.get(BASE_URL + "public/get-ticker")
+        response = response.json()['result']
+        return response['data']
+    except:
+        pass
     
 
 def get_cryptocom_ticker_value(symbol):

@@ -5,10 +5,12 @@ BASE_URL = 'https://www.bitstamp.net/api/v2/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "ticker/")
-    response = response.json()
-    return response
-    
+    try:
+        response = requests.get(BASE_URL + "ticker/")
+        response = response.json()
+        return response
+    except:
+        pass
 
 def get_bitstamp_ticker_value(second_coin):
 

@@ -6,8 +6,11 @@ client = Client(BINANCE_API_KEY, BINANCE_API_SECRET, testnet=False)
 
 
 def get_book():
-    response = client.get_orderbook_tickers()
-    return response
+    try:
+        response = client.get_orderbook_tickers()
+        return response
+    except:
+        pass
     
 
 def get_binance_ticker_value(second_coin):

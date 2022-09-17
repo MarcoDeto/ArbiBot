@@ -5,10 +5,12 @@ BASE_URL = 'https://api.mexc.com/api/v3/'
 
 
 def get_book():
-    response = requests.get(BASE_URL + "ticker/bookTicker")
-    response = response.json()
-    return response
-    
+    try:
+        response = requests.get(BASE_URL + "ticker/bookTicker")
+        response = response.json()
+        return response
+    except:
+        pass
 
 def get_mexc_ticker_value(second_coin):
 
