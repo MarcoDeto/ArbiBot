@@ -15,6 +15,8 @@ def get_book():
 def get_bitstamp_ticker_value(second_coin):
 
     symbols = get_book()
+    if symbols == None or len(symbols) == 0:
+        return None
     filtered = filter(lambda coin: coin['symbol'] == second_coin+'/USD', symbols)
     try:
         result = list(filtered)[0]

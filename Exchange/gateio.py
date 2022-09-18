@@ -32,6 +32,8 @@ def get_gateio_ticker_value(second_coin):
         "etf_leverage": "2.2803019447281203"
     '''
     symbols = get_book()
+    if symbols == None or len(symbols) == 0:
+        return None
     symbol = get_symbol(second_coin)
     filtered = filter(lambda coin: coin['currency_pair'] == symbol+'C', symbols)
     try:

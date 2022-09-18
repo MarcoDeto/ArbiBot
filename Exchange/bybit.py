@@ -33,6 +33,8 @@ def get_book():
 
 def get_bybit_ticker_value(second_coin):
     symbols = get_book()
+    if symbols == None or len(symbols) == 0:
+        return None
     symbol = get_symbol(second_coin)
     filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
     try:
