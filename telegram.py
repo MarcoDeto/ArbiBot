@@ -1,4 +1,4 @@
-from telethon import TelegramClient # pip install
+from telethon import TelegramClient # pip install telethon
 from telethon.errors import SessionPasswordNeededError
 
 from config import TELEGRAM_API_HASH, TELEGRAM_API_ID, TELEGRAM_CHANNEL, TELEGRAM_PHONE, TELEGRAM_USERBNAME

@@ -1,4 +1,3 @@
-from nis import cat
 import requests
 
 
