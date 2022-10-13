@@ -48,9 +48,9 @@ async def get_vvs_finance(telegram):
     result_list = []
 
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--no-sandbox')
+    #chrome_options.add_argument('--headless')
+    #chrome_options.add_argument('--disable-gpu')
+    #chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument("--mute-audio")
     chrome_driver_manager = ChromeDriverManager().install()
     driver = Chrome(service=Service(chrome_driver_manager),chrome_options=chrome_options)
@@ -88,7 +88,7 @@ async def get_vvs_finance(telegram):
             smallest_ask = get_smallest_ask(prices['ask'])
             ask_exchange = get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
-            if percent > 0:
+            if percent > 0.4:
                 await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
                                   ask_exchange['price'], ask_exchange['name'], percent, buy_on_vvs=True)
 
@@ -96,7 +96,7 @@ async def get_vvs_finance(telegram):
             biggest_bid = get_biggest_bid(prices['bid'])
             bid_exchange = get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
-            if percent > 0:
+            if percent > 0.4:
                 await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 
                                 bid_exchange['price'], bid_exchange['name'], percent, buy_on_vvs=False)
 
