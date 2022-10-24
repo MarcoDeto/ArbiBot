@@ -28,19 +28,17 @@ from selenium.webdriver.support.ui import Select
 coin_basec = 'USDC'
 coin_baset = 'USDT'
 
-coin_list = ['MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
-             'ALICE', 'ANKR', 'APE', 'AR', 'ARGO', 'ATOM', 'AURORA', 'AVAX', 'AXS', 'BAT',
-             'BCH', 'bCRO', 'BIFI', 'BOSON', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE',
-             'CRV', 'CSPR', 'DAI', 'DAR', 'DARK', 'DERC', 'DOGE', 'DOT', 'DUSD', 'DYDX',
-             'EFI', 'EGLD', 'ELON', 'ENJ', 'ENS', 'EOS', 'EPX', 'ETC', 'ETH', 'FER', 'FIL',
-             'FIRA', 'FITFI', 'FLOW', 'FTM', 'GAL', 'GALA', 'GLMR', 'GRT', 'HBAR', 'HNT',
-             'HOD', 'HOT', 'ICP', 'ICX', 'IMX', 'INJ', 'JASMY', 'KNC', 'KRL', 'KSM', 'LDO',
-             'LINK', 'LRC', 'LTC', 'MANA', 'MATIC', 'MC', 'MKR', 'MTD', 'NEAR', 'NEO', 'NESS',
-             'OGN', 'OMG', 'ONE', 'OPL', 'PAXG', 'PENDLE', 'PLA', 'QNT', 'QRDO', 'QTUM', 'RADAR',
-             'RARE', 'REN', 'REP', 'RNDR', 'RUNE', 'SAND', 'SHIB', 'SINGLE', 'SKY', 'SLP', 'SNT',
-             'SNX', 'SOL', 'SPELL', 'SPS', 'SRM', 'STX', 'SUSHI', 'THETA', 'TONIC', 'TUSD', 'UMA',
-             'UNI', 'USDC', 'V3CRO', 'V3DUSD', 'V3S', 'V3TONIC', 'VERSA', 'VET', 'VOXEL', 'VSHARE', 
-             'VTHO', 'WBTC', 'WCRO', 'WEMIX', 'WOO', 'XLM', 'XNO', 'XTZ', 'XYO', 'YFI', 'YGG', 'ZILL']
+coin_list = ['BNB', 'AAVE', 'ADA', 'AIRT', 'ALPACA', 'ALPHA', 'ALU', 'AOG', 'APE', 'ATOM',
+             'AURORA', 'AUTO', 'AVAX', 'AXS', 'BAKE', 'BAT', 'BCH', 'BCOIN', 'BFG', 'BIFI', 
+             'bMVL', 'BNX', 'BSC-EPK', 'BSW', 'BTCB', 'BTT', 'BUSD', 'C98', 'CAKE', 'CBT',
+             'CEEK', 'DAI', 'DAR', 'DOGE', 'DOME', 'DOT', 'DPET', 'EGLD', 'EOS', 'ETC', 
+             'ETH', 'EXOS', 'FARA', 'FEG', 'FIL', 'FTM', 'GAL', 'GALA', 'GHNY', 'GMT', 'GQ',
+             'GST', 'HERO', 'HOTCROSS', 'LAC', 'LINK', 'LOA', 'LTC', 'LZ', 'MANA', 'MATIC',
+             'MBOX', 'MLS', 'MOO', 'NEAR', 'ONE', 'PAE', 'pBNB', 'RABBIT', 'RACA', 'RBP', 
+             'REEF', 'RGOLD', 'SAND', 'SFP', 'SHIB', 'SOL', 'SRBP', 'SUSHI', 'SXP', 'TENFI', 
+             'THGD', 'TKO', 'TMT', 'TONCOIN', 'TPT', 'TRX', 'TUSD', 'TWT', 'UDO', 'ULAND',
+             'UNI', 'USDT', 'UST', 'VET', 'WATCH', 'WBNB', 'WIN', 'WOO', 'XPS',
+             'XRP', 'XVS', 'ZIL']
 
 
 async def get_vvs_finance(telegram):
@@ -58,7 +56,7 @@ async def get_vvs_finance(telegram):
     #driver = Chrome(service=Service(chrome_driver_manager))
 
     time.sleep(1)
-    driver.get('https://vvs.finance/swap')
+    driver.get('https://exchange.biswap.org/swap')
     time.sleep(3)
 
     stable_coin = coin_basec
@@ -112,18 +110,18 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
     while check_value != first_coin:
         try:
-            buttons = driver.find_elements(By.CLASS_NAME, 'open-currency-select-button')
+            buttons = driver.find_elements(By.CLASS_NAME, 'gTJeFO')
             buttons[0].click()
             delay()
         except:
             try:
-                close_button = driver.find_elements(By.CLASS_NAME, 'inQzxP')
+                close_button = driver.find_elements(By.CLASS_NAME, 'ieJGVy')
                 close_button[0].click()
                 delay()
             except:
                 pass
         try:
-            crypto = driver.find_element(By.ID, 'token-search-input')
+            crypto = driver.find_element(By.CLASS_NAME, 'jUKyxu')
             crypto.send_keys(first_coin)
             delay()
             crypto.send_keys(Keys.ENTER)
@@ -140,18 +138,18 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
     while check_value != second_coin:
         try:
-            buttons = driver.find_elements(By.CLASS_NAME, 'open-currency-select-button')
+            buttons = driver.find_elements(By.CLASS_NAME, 'gTJeFO')
             buttons[1].click()
             delay()
         except:
             try:
-                close_button = driver.find_elements(By.CLASS_NAME, 'inQzxP')
+                close_button = driver.find_elements(By.CLASS_NAME, 'ieJGVy')
                 close_button[0].click()
                 delay()
             except:
                 pass
         try:
-            crypto = driver.find_element(By.ID, 'token-search-input')
+            crypto = driver.find_element(By.CLASS_NAME, 'jUKyxu')
             crypto.send_keys(second_coin)
             delay()
             crypto.send_keys(Keys.ENTER)
@@ -192,33 +190,33 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
                 if check_value == price_to_check:
                     continue
 
-        price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')
+        price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[3].text
+            price_label = price_element[39].text
         except:
             continue
         price = price_label.split(' ')
         ask_prices[price_to_check] = float(price[0])
         delay()
-        change_to_sell = driver.find_elements(By.CLASS_NAME, 'fbkFTK')
+        change_to_sell = driver.find_elements(By.CLASS_NAME, 'emnjve')
         try:
             change_to_sell[0].click()
         except:
             continue
         delay()
-        price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')
+        price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[3].text
+            price_label = price_element[39].text
         except:
-            change_to_sell = driver.find_elements(By.CLASS_NAME, 'fbkFTK')
+            change_to_sell = driver.find_elements(By.CLASS_NAME, 'emnjve')
             change_to_sell[0].click()
             continue
-        change_in_stable = driver.find_elements(By.CLASS_NAME, 'kxCpqo')
+        change_in_stable = driver.find_elements(By.CLASS_NAME, 'kKUJNJ')
         change_in_stable[0].click()
         delay()
-        price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')
+        price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[3].text
+            price_label = price_element[39].text
         except:
             continue
         price = price_label.split(' ')
