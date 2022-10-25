@@ -39,7 +39,7 @@ coin_list = ['MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 
              'OGN', 'OMG', 'ONE', 'OPL', 'PAXG', 'PENDLE', 'PLA', 'QNT', 'QRDO', 'QTUM', 'RADAR',
              'RARE', 'REN', 'REP', 'RNDR', 'RUNE', 'SAND', 'SHIB', 'SINGLE', 'SKY', 'SLP', 'SNT',
              'SNX', 'SOL', 'SPELL', 'SPS', 'SRM', 'STX', 'SUSHI', 'THETA', 'TONIC', 'TUSD', 'UMA',
-             'UNI', 'USDC', 'V3CRO', 'V3DUSD', 'V3S', 'V3TONIC', 'VERSA', 'VET', 'VOXEL', 'VSHARE', 
+             'UNI', 'USDT', 'V3CRO', 'V3DUSD', 'V3S', 'V3TONIC', 'VERSA', 'VET', 'VOXEL', 'VSHARE', 
              'VTHO', 'WBTC', 'WCRO', 'WEMIX', 'WOO', 'XLM', 'XNO', 'XTZ', 'XYO', 'YFI', 'YGG', 'ZILL']
 
 
@@ -89,16 +89,18 @@ async def get_vvs_finance(telegram):
             ask_exchange = get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
             if percent > 0.4:
-                await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
-                                  ask_exchange['price'], ask_exchange['name'], percent, buy_on_vvs=True)
+                subtitle = '\n\n💎💎VVS💎💎 - ' + symbol + ' - $' + str(smallest_ask['amount'])
+                await sendMessage(telegram, subtitle, smallest_ask['price'], 
+                                  ask_exchange['price'], ask_exchange['name'], percent, buy_on_defi=True)
 
         if len(prices['bid']) > 0:
             biggest_bid = get_biggest_bid(prices['bid'])
             bid_exchange = get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
             if percent > 0.4:
-                await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 
-                                bid_exchange['price'], bid_exchange['name'], percent, buy_on_vvs=False)
+                subtitle = '\n\n💎💎VVS💎💎 - ' + symbol + ' - $' + str(biggest_bid['amount'])
+                await sendMessage(telegram, subtitle, biggest_bid['price'], 
+                                bid_exchange['price'], bid_exchange['name'], percent, buy_on_defi=False)
 
     print(result_list)
 
