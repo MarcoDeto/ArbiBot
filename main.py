@@ -1,5 +1,4 @@
 from DeFi.biswap import *
-from DeFi.vvs import *
 from Exchange.cryptocom import *
 from telegram import *
 import asyncio
