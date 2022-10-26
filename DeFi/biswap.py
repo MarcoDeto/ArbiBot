@@ -29,19 +29,18 @@ coin_basec = 'USDC'
 coin_baset = 'USDT'
 
 coin_list = ['BNB', 'AAVE', 'ADA', 'AIRT', 'ALPACA', 'ALPHA', 'ALU', 'AOG', 'APE', 'ATOM',
-             'AURORA', 'AUTO', 'AVAX', 'AXS', 'BAKE', 'BAT', 'BCH', 'BCOIN', 'BFG', 'BIFI', 
-             'bMVL', 'BNX', 'BSC-EPK', 'BSW', 'BTCB', 'BTT', 'BUSD', 'C98', 'CAKE', 'CBT',
-             'CEEK', 'DAI', 'DAR', 'DOGE', 'DOME', 'DOT', 'DPET', 'EGLD', 'EOS', 'ETC', 
-             'ETH', 'EXOS', 'FARA', 'FEG', 'FIL', 'FTM', 'GAL', 'GALA', 'GHNY', 'GMT', 'GQ',
-             'GST', 'HERO', 'HOTCROSS', 'LAC', 'LINK', 'LOA', 'LTC', 'LZ', 'MANA', 'MATIC',
-             'MBOX', 'MLS', 'MOO', 'NEAR', 'ONE', 'PAE', 'pBNB', 'RABBIT', 'RACA', 'RBP', 
-             'REEF', 'RGOLD', 'SAND', 'SFP', 'SHIB', 'SOL', 'SRBP', 'SUSHI', 'SXP', 'TENFI', 
-             'THGD', 'TKO', 'TMT', 'TONCOIN', 'TPT', 'TRX', 'TUSD', 'TWT', 'UDO', 'ULAND',
-             'UNI', 'USDT', 'UST', 'VET', 'WATCH', 'WBNB', 'WIN', 'WOO', 'XPS',
-             'XRP', 'XVS', 'ZIL']
+             'AUTO', 'AVAX', 'AXS', 'BAKE', 'BAT', 'BCH', 'BCOIN', 'BFG', 'BIFI', 'bMVL', 
+             'BNX', 'BSC-EPK', 'BSW', 'BTCB', 'BTT', 'BUSD', 'C98', 'CAKE', 'CBT', 'CEEK',
+             'DAI', 'DAR', 'DOGE', 'DOME', 'DOT', 'DPET', 'EGLD', 'EOS', 'ETC', 'ETH', 
+             'EXOS', 'FARA', 'FEG', 'FIL', 'FTM', 'GAL', 'GHNY', 'GMT', 'GQ', 'GST',
+             'HERO', 'HOTCROSS', 'LAC', 'LINK', 'LOA', 'LTC', 'LZ', 'MANA', 'MATIC', 'MBOX',
+             'MLS', 'MOO', 'NEAR', 'PAE', 'pBNB', 'RABBIT', 'RACA', 'RBP', 'REEF', 
+             'RGOLD', 'SAND', 'SFP', 'SHIB', 'SOL', 'SRBP', 'SUSHI', 'SXP', 'TENFI', 'THGD',
+             'TKO', 'TMT', 'TONCOIN', 'TPT', 'TRX', 'TUSD', 'TWT', 'UDO', 'ULAND', 'UNI', 
+             'USDT', 'UST', 'VET', 'WATCH', 'WBNB', 'WIN', 'WOO', 'XPS', 'XRP', 'XVS', 'ZIL']
 
 
-async def get_vvs_finance(telegram):
+async def get_biswap(telegram):
 
     result_list = []
 
@@ -86,17 +85,19 @@ async def get_vvs_finance(telegram):
             smallest_ask = get_smallest_ask(prices['ask'])
             ask_exchange = get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
-            if percent > 0.4:
-                await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
-                                  ask_exchange['price'], ask_exchange['name'], percent, buy_on_vvs=True)
+            if percent > 0.4 and percent < 1000:
+                subtitle = '\n\n🕊🕊BISWAP🕊🕊 - ' + symbol + ' - $' + str(smallest_ask['amount'])
+                await sendMessage(telegram, subtitle, smallest_ask['price'], 
+                                  ask_exchange['price'], ask_exchange['name'], percent, buy_on_defi=True)
 
         if len(prices['bid']) > 0:
             biggest_bid = get_biggest_bid(prices['bid'])
             bid_exchange = get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
             percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
-            if percent > 0.4:
-                await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 
-                                bid_exchange['price'], bid_exchange['name'], percent, buy_on_vvs=False)
+            if percent > 0.4 and percent < 1000:
+                subtitle = '\n\n🕊🕊BISWAP🕊🕊 - ' + symbol + ' - $' + str(biggest_bid['amount'])
+                await sendMessage(telegram, subtitle, biggest_bid['price'], 
+                                bid_exchange['price'], bid_exchange['name'], percent, buy_on_defi=False)
 
     print(result_list)
 
@@ -110,7 +111,7 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
     while check_value != first_coin:
         try:
-            buttons = driver.find_elements(By.CLASS_NAME, 'gTJeFO')
+            buttons = driver.find_elements(By.CLASS_NAME, 'cbBqGu')
             buttons[0].click()
             delay()
         except:
@@ -138,13 +139,13 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
     while check_value != second_coin:
         try:
-            buttons = driver.find_elements(By.CLASS_NAME, 'gTJeFO')
+            buttons = driver.find_elements(By.CLASS_NAME, 'cbBqGu')
             buttons[1].click()
             delay()
         except:
             try:
                 close_button = driver.find_elements(By.CLASS_NAME, 'ieJGVy')
-                close_button[0].click()
+                close_button[1].click()
                 delay()
             except:
                 pass
@@ -192,7 +193,7 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
         price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[39].text
+            price_label = price_element[41].text
         except:
             continue
         price = price_label.split(' ')
@@ -206,7 +207,7 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[39].text
+            price_label = price_element[41].text
         except:
             change_to_sell = driver.find_elements(By.CLASS_NAME, 'emnjve')
             change_to_sell[0].click()
@@ -216,14 +217,20 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'eVETst')
         try:
-            price_label = price_element[39].text
+            price_label = price_element[41].text
         except:
             continue
         price = price_label.split(' ')
         bid_prices[price_to_check] = float(price[0])
 
         change_to_sell[0].click()
-        change_in_stable[0].click()
+        delay()
+        try: 
+            change_in_stable[0].click()
+        except:
+            entry[1].clear()
+            entry[0].clear()
+            delay()
         entry[1].clear()
         entry[0].clear()
         delay()
