@@ -71,10 +71,12 @@ def get_cryptocom_ticker_value(symbol):
      c     number      24-hour price change, null if there weren't any trades
 
     '''
+    result = None
     symbols = get_symbols()
     if symbols == None or len(symbols) == 0:
         return None
-    filtered = filter(lambda coin: coin['i'] == symbol+'C', symbols)
+    
+    filtered = filter(lambda coin: coin['i'] == symbol, symbols)
     try:
         result = list(filtered)[0]
     except:
@@ -85,9 +87,12 @@ def get_cryptocom_ticker_value(symbol):
             return None
     
     response = dict()
-    response['ask'] = result['k']
-    response['bid'] = result['b']
-    return response
+    if result['k'] != None and result['b'] != None:
+        response['ask'] = result['k']
+        response['bid'] = result['b']
+        return response
+    else:
+        return None
 
 
 def params_to_str(obj, level):

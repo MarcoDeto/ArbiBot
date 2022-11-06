@@ -28,7 +28,7 @@ from selenium.webdriver.support.ui import Select
 coin_basec = 'USDC'
 coin_baset = 'USDT'
 
-coin_list = ['MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
+coin_list = ['GALA', 'MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
              'ALICE', 'ANKR', 'APE', 'AR', 'ARGO', 'ATOM', 'AURORA', 'AVAX', 'AXS', 'BAT',
              'BCH', 'bCRO', 'BIFI', 'BOSON', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE',
              'CRV', 'CSPR', 'DAI', 'DAR', 'DARK', 'DERC', 'DOGE', 'DOT', 'DUSD', 'DYDX',
@@ -202,20 +202,17 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         price = price_label.split(' ')
         ask_prices[price_to_check] = float(price[0])
         delay()
-        change_to_sell = driver.find_elements(By.CLASS_NAME, 'fbkFTK')
-        try:
-            change_to_sell[0].click()
-        except:
-            continue
+        change_to_sell = driver.find_elements(By.CLASS_NAME, 'Hvkei')
+        change_to_sell[0].click()
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')
         try:
             price_label = price_element[3].text
         except:
-            change_to_sell = driver.find_elements(By.CLASS_NAME, 'fbkFTK')
+            change_to_sell = driver.find_elements(By.CLASS_NAME, 'Hvkei')
             change_to_sell[0].click()
             continue
-        change_in_stable = driver.find_elements(By.CLASS_NAME, 'kxCpqo')
+        change_in_stable = driver.find_elements(By.CLASS_NAME, 'OwkWE')
         change_in_stable[0].click()
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'liRUbv')

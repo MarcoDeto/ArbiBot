@@ -13,26 +13,25 @@ def get_book():
         pass
 
 def get_bittrex_ticker_value(second_coin):
-
+    result = None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None
     symbol = get_symbol(second_coin)
-    filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
-    try:
-        result = list(filtered)[0]
-    except:
-        filtered = filter(lambda coin: coin['i'] == symbol+'T', symbols)
-        try:
-            result = list(filtered)[0]
-        except:
-            return None
     
+    for item in symbols:
+        if item['symbol'] == symbol+'C' or item['symbol'] == symbol+'T' :
+            result = item
+    if result == None:
+        return None
     
     response = dict()
-    response['ask'] = float(result['askRate'])
-    response['bid'] = float(result['bidRate'])
-    return response
+    if result['askRate'] != None and result['bidRate'] != None:
+        response['ask'] = float(result['askRate'])
+        response['bid'] = float(result['bidRate'])
+        return response
+    else:
+        return None
 
 
 def get_symbol(second_coin):

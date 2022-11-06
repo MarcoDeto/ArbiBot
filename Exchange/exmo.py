@@ -14,26 +14,25 @@ def get_book():
     
 
 def get_exmo_ticker_value(second_coin):
-
+    result = None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None
     symbol = get_symbol(second_coin)
-    filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
+    
     try:
-        result = list(filtered)[0]
+        result = symbols[symbol]
     except:
-        filtered = filter(lambda coin: coin['i'] == symbol+'T', symbols)
-        try:
-            result = list(filtered)[0]
-        except:
-            return None
+        return None
     
     response = dict()
-    response['ask'] = float(result['buy_price'])
-    response['bid'] = float(result['sell_price'])
-    return response
+    if result['buy_price'] != None and result['sell_price'] != None:
+        response['ask'] = float(result['buy_price'])
+        response['bid'] = float(result['sell_price'])
+        return response
+    else:
+        return None
 
 
 def get_symbol(second_coin):
-    return second_coin+'USD'
+    return second_coin+'_USD'

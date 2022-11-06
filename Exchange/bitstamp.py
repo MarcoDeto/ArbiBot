@@ -13,21 +13,20 @@ def get_book():
         pass
 
 def get_bitstamp_ticker_value(second_coin):
-
+    result = None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None
-    filtered = filter(lambda coin: coin['symbol'] == second_coin+'/USD', symbols)
-    try:
-        result = list(filtered)[0]
-    except:
-        filtered = filter(lambda coin: coin['i'] == second_coin+'/EUR', symbols)
-        try:
-            result = list(filtered)[0]
-        except:
-            return None
+    for item in symbols:
+        if item['pair'] == second_coin+'/USD':
+            result = item
+    if result == None:
+        return None
     
     response = dict()
-    response['ask'] = float(result['ask'])
-    response['bid'] = float(result['bid'])
-    return response
+    if result['ask'] != None and result['bid'] != None:
+        response['ask'] = float(result['ask'])
+        response['bid'] = float(result['bid'])
+        return response
+    else:
+        return None

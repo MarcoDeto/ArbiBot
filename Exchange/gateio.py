@@ -31,24 +31,25 @@ def get_gateio_ticker_value(second_coin):
         "etf_pre_timestamp": 1611244800,
         "etf_leverage": "2.2803019447281203"
     '''
+    result = None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None
     symbol = get_symbol(second_coin)
-    filtered = filter(lambda coin: coin['currency_pair'] == symbol+'C', symbols)
-    try:
-        result = list(filtered)[0]
-    except:
-        filtered = filter(lambda coin: coin['i'] == symbol+'T', symbols)
-        try:
-            result = list(filtered)[0]
-        except:
-            return None
+    
+    for item in symbols:
+        if item['currency_pair'] == symbol+'C' or item['currency_pair'] == symbol+'T' :
+            result = item
+    if result == None:
+        return None
     
     response = dict()
-    response['ask'] = float(result['lowest_ask'])
-    response['bid'] = float(result['highest_bid'])
-    return response
+    if result['lowest_ask'] != None and result['highest_bid'] != None:
+        response['ask'] = float(result['lowest_ask'])
+        response['bid'] = float(result['highest_bid'])
+        return response
+    else:
+        return None
 
 
 def get_symbol(second_coin):

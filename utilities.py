@@ -7,28 +7,28 @@ def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     for exchange in EXCHANGE_LIST:
         exchange_list.append(exchange)
 
-    if ascendex != None: list.append(ascendex['bid'])
+    if ascendex != None: list.append(float(ascendex['bid']))
     else: exchange_list.remove('ASCENDEX')
 
-    if binance != None: list.append(binance['bid'])
+    if binance != None: list.append(float(binance['bid']))
     else: exchange_list.remove('BINANCE')
 
-    if bitstamp != None: list.append(bitstamp['bid'])
+    if bitstamp != None: list.append(float(bitstamp['bid']))
     else: exchange_list.remove('BITSTAMP')
 
-    if bittrex != None: list.append(bittrex['bid'])
+    if bittrex != None: list.append(float(bittrex['bid']))
     else: exchange_list.remove('BITTREX')
 
-    if cryptocom != None: list.append(cryptocom['bid'])
+    if cryptocom != None: list.append(float(cryptocom['bid']))
     else: exchange_list.remove('CRYPTO.COM')
 
-    if exmo != None: list.append(exmo['bid'])
+    if exmo != None: list.append(float(exmo['bid']))
     else: exchange_list.remove('EXMO')
 
-    if gateio != None: list.append(gateio['bid'])
+    if gateio != None: list.append(float(gateio['bid']))
     else: exchange_list.remove('GATEIO')
         
-    if mexc != None: list.append(mexc['bid'])
+    if mexc != None: list.append(float(mexc['bid']))
     else: exchange_list.remove('MEXC')
 
     try:
@@ -42,7 +42,7 @@ def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     index = list.index(value)
     response = dict()
     response['name'] = exchange_list[index]
-    response['price'] = value
+    response['price'] = float(value)
     return response
 
 
@@ -52,28 +52,28 @@ def get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     for exchange in EXCHANGE_LIST:
         exchange_list.append(exchange)
 
-    if ascendex != None: list.append(ascendex['ask'])
+    if ascendex != None: list.append(float(ascendex['ask']))
     else: exchange_list.remove('ASCENDEX')
 
-    if binance != None: list.append(binance['ask'])
+    if binance != None: list.append(float(binance['ask']))
     else: exchange_list.remove('BINANCE')
 
-    if bitstamp != None: list.append(bitstamp['ask'])
+    if bitstamp != None: list.append(float(bitstamp['ask']))
     else: exchange_list.remove('BITSTAMP')
 
-    if bittrex != None: list.append(bittrex['ask'])
+    if bittrex != None: list.append(float(bittrex['ask']))
     else: exchange_list.remove('BITTREX')
 
-    if cryptocom != None: list.append(cryptocom['ask'])
+    if cryptocom != None: list.append(float(cryptocom['ask']))
     else: exchange_list.remove('CRYPTO.COM')
 
-    if exmo != None: list.append(exmo['ask'])
+    if exmo != None: list.append(float(exmo['ask']))
     else: exchange_list.remove('EXMO')
 
-    if gateio != None: list.append(gateio['ask'])
+    if gateio != None: list.append(float(gateio['ask']))
     else: exchange_list.remove('GATEIO')
         
-    if mexc != None: list.append(mexc['ask'])
+    if mexc != None: list.append(float(mexc['ask']))
     else: exchange_list.remove('MEXC')
 
     try:
@@ -87,7 +87,7 @@ def get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     index = list.index(value)
     response = dict()
     response['name'] = exchange_list[index]
-    response['price'] = value
+    response['price'] = float(value)
     return response
 
 
@@ -104,7 +104,7 @@ def prices_to_list(prices):
     list = []
     for AMOUNT in AMOUNT_LIST:
         try: 
-            list.append(prices[AMOUNT])
+            list.append(float(prices[AMOUNT]))
         except:
             continue
     return list
@@ -116,7 +116,7 @@ def get_smallest_ask(ask_prices):
     index = list.index(smallest)
     response = dict()
     response['amount'] = int(AMOUNT_LIST[index])
-    response['price'] = smallest
+    response['price'] = float(smallest)
     return response
 
 
@@ -126,5 +126,5 @@ def get_biggest_bid(bid_prices):
     index = list.index(biggest)
     response = dict()
     response['amount'] = int(AMOUNT_LIST[index])
-    response['price'] = biggest
+    response['price'] = float(biggest)
     return response
