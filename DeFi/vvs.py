@@ -30,7 +30,7 @@ coin_baset = 'USDT'
 
 coin_list = ['GALA', 'MTD', 'FER', 'CRO', '1INCH', 'AAVE', 'ACA', 'ACH', 'ADA', 'AGLD', 'AKT', 'ALGO', 'ALI',
              'ALICE', 'ANKR', 'APE', 'AR', 'ARGO', 'ATOM', 'AURORA', 'AVAX', 'AXS', 'BAT',
-             'BCH', 'bCRO', 'BIFI', 'BOSON', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE',
+             'BCH', 'bCRO', 'BIFI', 'BOSON', 'BUSD', 'CELR', 'CHR', 'CHZ', 'CKB', 'COMP', 'CROGE', 'CROID'
              'CRV', 'CSPR', 'DAI', 'DAR', 'DARK', 'DERC', 'DOGE', 'DOT', 'DUSD', 'DYDX',
              'EFI', 'EGLD', 'ELON', 'ENJ', 'ENS', 'EOS', 'EPX', 'ETC', 'ETH', 'FER', 'FIL',
              'FIRA', 'FITFI', 'FLOW', 'FTM', 'GAL', 'GALA', 'GLMR', 'GRT', 'HBAR', 'HNT',
