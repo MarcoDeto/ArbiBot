@@ -74,7 +74,7 @@ def get_cryptocom_ticker_value(symbol):
     symbols = get_symbols()
     if symbols == None or len(symbols) == 0:
         return None
-    filtered = filter(lambda coin: coin['i'] == symbol+'C', symbols)
+    filtered = filter(lambda coin: coin['i'] == symbol, symbols)
     try:
         result = list(filtered)[0]
     except:

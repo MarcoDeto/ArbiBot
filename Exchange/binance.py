@@ -1,3 +1,5 @@
+
+# pip install python-binance #OR# py -m pip install python-binance
 from binance.client import Client
 from config import *
 

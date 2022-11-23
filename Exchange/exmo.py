@@ -14,7 +14,7 @@ def get_book():
     
 
 def get_exmo_ticker_value(second_coin):
-
+    return None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None

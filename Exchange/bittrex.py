@@ -13,7 +13,7 @@ def get_book():
         pass
 
 def get_bittrex_ticker_value(second_coin):
-
+    return None
     symbols = get_book()
     if symbols == None or len(symbols) == 0:
         return None

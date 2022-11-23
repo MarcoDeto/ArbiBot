@@ -1,4 +1,4 @@
-# pip install webdriver-manager
+# pip install webdriver-manager #OR# py -m pip install webdriver-manager
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Safari, Edge, Chrome  # pip install selenium
 from selenium.webdriver.common.by import By
@@ -73,7 +73,7 @@ async def get_vvs_finance(telegram):
         exmo = get_exmo_ticker_value(second_coin)
         gateio = get_gateio_ticker_value(second_coin)
         mexc = get_mexc_ticker_value(second_coin)
-        if cryptocom == None and mexc == None:
+        if cryptocom == None:
             print(symbol)
             continue
         result = dict()
