@@ -86,7 +86,7 @@ async def get_pancake_finance(telegram):
         exmo = get_exmo_ticker_value(second_coin)
         gateio = get_gateio_ticker_value(second_coin)
         mexc = get_mexc_ticker_value(second_coin)
-        if cryptocom == None:
+        if binance == None:
             print(symbol)
             continue
         result = dict()

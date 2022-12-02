@@ -36,4 +36,4 @@ def get_binance_ticker_value(second_coin):
 
 
 def get_symbol(second_coin):
-    return second_coin+'USD'
+    return second_coin+'BUSD'

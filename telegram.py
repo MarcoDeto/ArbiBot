@@ -31,7 +31,7 @@ async def sendMessage(telegram, symbol, amount, open_price, close_price, exchang
     title = '**🤑💰ARBITRAGGIO💰🤑\n'
     profit = 'PROFIT: ' + str(percent) + '% 🤑 **'
 
-    subtitle = '\n\n💎💎VVS💎💎 - ' + symbol + ' - $' + str(amount)
+    subtitle = '\n\n🎂🥮PANCAKE🥮🎂 - ' + symbol + ' - $' + str(amount)
 
     openPrice = '\n\n**OPEN PRICE**: ' + str(open_price) + ' 🛒\n'
     if buy_on_vvs == True:
