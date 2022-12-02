@@ -85,8 +85,8 @@ def get_cryptocom_ticker_value(symbol):
             return None
     
     response = dict()
-    response['ask'] = result['k']
-    response['bid'] = result['b']
+    response['ask'] = float(result['k'])
+    response['bid'] = float(result['b'])
     return response
 
 
