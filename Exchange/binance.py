@@ -3,9 +3,7 @@
 from binance.client import Client
 from config import *
 
-
 client = Client(BINANCE_API_KEY, BINANCE_API_SECRET, testnet=False)
-
 
 def get_book():
     try:
@@ -20,7 +18,7 @@ def get_binance_ticker_value(second_coin):
     if symbols == None or len(symbols) == 0:
         return None
     symbol = get_symbol(second_coin)
-    filtered = filter(lambda coin: coin['symbol'] == symbol+'C', symbols)
+    filtered = filter(lambda coin: coin['symbol'] == 'B'+symbol, symbols)
     try:
         result = list(filtered)[0]
     except:
