@@ -1,3 +1,4 @@
+from DeFi.pancake import get_pancake_finance
 from DeFi.vvs import *
 from Exchange.cryptocom import *
 from telegram import *
@@ -7,6 +8,6 @@ async def main():
     await initTelegram()
     telegram = await getChannel()
     while True:
-        await get_vvs_finance(telegram)
+        await get_pancake_finance(telegram)
 
 asyncio.run(main())
