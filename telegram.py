@@ -35,13 +35,13 @@ async def sendMessage(telegram, symbol, amount, open_price, close_price, exchang
 
     openPrice = '\n\n**OPEN PRICE**: ' + str(open_price) + ' 🛒\n'
     if buy_on_vvs == True:
-        openPrice = openPrice + 'BUY ON VVS\n'
+        openPrice = openPrice + 'BUY ON PANCAKE🥮\n'
     else:
         openPrice = openPrice + 'BUY ON ' + exchange + '\n'
         
     closePrice = '**CLOSE PRICE**: ' + str(close_price) + ' ✋🏼\n'
     if buy_on_vvs == False:
-        closePrice = closePrice + 'SELL ON VVS\n'
+        closePrice = closePrice + 'SELL ON PANCAKE🥮\n'
     else:
         closePrice = closePrice + 'SELL ON ' + exchange + '\n'
 

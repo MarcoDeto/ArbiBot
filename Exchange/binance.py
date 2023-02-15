@@ -19,15 +19,20 @@ def get_binance_ticker_value(second_coin):
     if symbols == None or len(symbols) == 0:
         return None
     symbol = get_symbol(second_coin)
-    filtered = filter(lambda coin: coin['symbol'] == 'B'+symbol, symbols)
+    filtered = filter(lambda coin: coin['symbol'] == symbol, symbols)
     try:
         result = list(filtered)[0]
     except:
-        filtered = filter(lambda coin: coin['i'] == symbol+'T', symbols)
+        symbol = get_busd_symbol(second_coin)
+        filtered = filter(lambda coin: coin['symbol'] == symbol, symbols)
         try:
             result = list(filtered)[0]
         except:
-            return None
+            filtered = filter(lambda coin: coin['symbol'] == symbol+'T', symbols)
+            try:
+                result = list(filtered)[0]
+            except:
+                return None
     
     response = dict()
     response['ask'] = float(result['askPrice'])
@@ -37,3 +42,6 @@ def get_binance_ticker_value(second_coin):
 
 def get_symbol(second_coin):
     return second_coin+'USD'
+
+def get_busd_symbol(second_coin):
+    return second_coin+'BUSD'

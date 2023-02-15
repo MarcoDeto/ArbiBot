@@ -1,6 +1,6 @@
 # pip install webdriver-manager #OR# py -m pip install webdriver-manager
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver import Safari, Edge, Chrome  # pip install selenium
+from selenium.webdriver import Safari, Edge, Chrome  # pip install selenium #OR# py -m pip install selenium
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
@@ -27,7 +27,7 @@ from selenium.webdriver.support.ui import Select
 
 coin_basec = 'BUSD'
 
-coin_list = ['BNB', 'CAKE', '8PAY', 'aBNBc', 'ACH', 'ADA', 'ADX', 'ALICE', 'ALPA', 'ALPACA',
+coin_list = ['BNB', 'ACH', 'ADA', 'ADX', 'ALICE', 'ALPA', 'ALPACA',
              'ALPHA', 'AMPL', 'ANTEX', 'AOG', 'ATOM', 'APE', 'APX', 'APYS', 'ARPA',
              'ARV', 'ASR', 'ATA', 'ATM', 'ATOM', 'AXS', 'BABYCAKE', 'BAKE', 'BAND',
              'BATH', 'BBT', 'BCH', 'BCOIN', 'BDO', 'BELT', 'BETA', 'BETH',
@@ -100,17 +100,19 @@ async def get_pancake_finance(telegram):
         if len(prices['ask']) > 0:
             smallest_ask = get_smallest_ask(prices['ask'])
             ask_exchange = get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
-            percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
-            if percent > 0.4:
-                await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
+            if (smallest_ask != None and ask_exchange != None):
+                percent = get_diff_percent(smallest_ask['price'], ask_exchange['price'])
+                if percent > 0.4:
+                    await sendMessage(telegram, symbol, smallest_ask['amount'], smallest_ask['price'], 
                                   ask_exchange['price'], ask_exchange['name'], percent, buy_on_vvs=True)
 
         if len(prices['bid']) > 0:
             biggest_bid = get_biggest_bid(prices['bid'])
             bid_exchange = get_best_ask_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo, gateio, mexc)
-            percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
-            if percent > 0.4:
-                await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 
+            if (smallest_ask != None and ask_exchange != None):
+                percent = get_diff_percent(bid_exchange['price'], biggest_bid['price'])
+                if percent > 0.4:
+                    await sendMessage(telegram, symbol, biggest_bid['amount'], biggest_bid['price'], 
                                 bid_exchange['price'], bid_exchange['name'], percent, buy_on_vvs=False)
 
     print(result_list)
@@ -179,8 +181,11 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
     entry = driver.find_elements(By.CLASS_NAME, 'token-amount-input')
 
     for price_to_check in price_list:
-        entry[1].clear()
         entry[0].clear()
+        try:
+            entry[1].clear()
+        except:
+            delay()
         delay()
         entry[0].send_keys(price_to_check)
         delay()
@@ -193,17 +198,33 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         if check_value != price_to_check:
 
             while check_value != price_to_check:
-                entry[1].clear()
-                entry[0].clear()
-                delay()
-                control[0].clear()
-                control[1].clear()
-                entry[0].send_keys(price_to_check)
-                delay()
-                check_value = control[0].get_attribute('value')
-                delay()
-                if check_value == price_to_check:
-                    continue
+                try:
+                    entry[1].clear()
+                    entry[0].clear()
+                    delay()
+                    control[0].clear()
+                    control[1].clear()
+                    entry[0].send_keys(price_to_check)
+                    delay()
+                    check_value = control[0].get_attribute('value')
+                    delay()
+                    if check_value == price_to_check:
+                        continue
+                except:
+                    control[0].clear()
+                    entry[0].clear()
+                    try:
+                        entry[1].clear()
+                        control[1].clear()
+                        delay()
+                    except:
+                        delay()
+                    entry[0].send_keys(price_to_check)
+                    delay()
+                    check_value = control[0].get_attribute('value')
+                    delay()
+                    if check_value == price_to_check:
+                        continue
 
         price_element = driver.find_elements(By.CLASS_NAME, 'eOccyd')
         try:
@@ -226,8 +247,11 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
             change_to_sell = driver.find_elements(By.CLASS_NAME, '_1cvvxtw1')
             change_to_sell[0].click()
             continue
-        change_in_stable = driver.find_elements(By.CLASS_NAME, '_1cvvxtwp')
-        change_in_stable[0].click()
+        change_in_stable = driver.find_elements(By.CLASS_NAME, '_1nzuaz740l')
+        try:
+            change_in_stable[0].click()
+        except:
+            continue
         delay()
         price_element = driver.find_elements(By.CLASS_NAME, 'eOccyd')
         try:

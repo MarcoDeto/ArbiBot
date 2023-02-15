@@ -38,6 +38,9 @@ def get_best_bid_exchange(ascendex, binance, bitstamp, bittrex, cryptocom, exmo,
     except:
         pass
 
+    if (list == None or len(list) == 0):
+        return None
+    
     value = max(list)
     index = list.index(value)
     response = dict()
