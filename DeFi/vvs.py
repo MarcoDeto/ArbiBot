@@ -173,10 +173,8 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         entry[0].send_keys(price_to_check)
         delay()
 
-        control = driver.find_elements(
-            By.XPATH, "//input[@title='Token Amount']")
-        check_value = control[0].get_attribute(
-            'value')  # recupero attributo 'value'
+        control = driver.find_elements(By.XPATH, "//input[@title='Token Amount']")
+        check_value = control[0].get_attribute('value')
 
         if check_value != price_to_check:
 
