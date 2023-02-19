@@ -231,7 +231,8 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
             price_label = price_element[0].text
         except:
             continue
-        price = price_label.split(' ')
+        price = price_label.split('\n')
+        price = price[1].split(' ')
         ask_prices[price_to_check] = float(price[0])
         delay()
         change_to_sell = driver.find_elements(By.CLASS_NAME, '_1cvvxtw1')
@@ -243,6 +244,8 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         price_element = driver.find_elements(By.CLASS_NAME, 'eOccyd')
         try:
             price_label = price_element[0].text
+            price = price_label.split('\n')
+            price = price[1].split(' ')
         except:
             change_to_sell = driver.find_elements(By.CLASS_NAME, '_1cvvxtw1')
             change_to_sell[0].click()
@@ -256,6 +259,8 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
         price_element = driver.find_elements(By.CLASS_NAME, 'eOccyd')
         try:
             price_label = price_element[0].text
+            price = price_label.split('\n')
+            price = price[1].split(' ')
         except:
             continue
         price = price_label.split(' ')
@@ -263,8 +268,12 @@ def get_price_coin(driver, price_list, first_coin, second_coin, ask_prices, bid_
 
         change_to_sell[0].click()
         change_in_stable[0].click()
-        entry[1].clear()
-        entry[0].clear()
+        delay()
+        try:
+            entry[1].clear()
+            entry[0].clear()
+        except:
+            entry[0].clear()
         delay()
 
     response = dict()
